@@ -85,10 +85,13 @@ func command_enemy_tank():
 			var y = rand_range(120, _screen_size.y - 120)
 			enemy_pool.move_to = Vector2(x, y)
 			enemy_pool.is_moving = true
+			enemy_pool.is_aiming = false
+			
 		else:
 			enemy_pool.target = _tank
 			enemy_pool.is_aiming = true
-	
+			enemy_pool.is_moving = false
+			
 func display_score():
 	_score.text = "Score : " + str(score)
 	_hp.text = "Hp : " + str(_tank.hp)
