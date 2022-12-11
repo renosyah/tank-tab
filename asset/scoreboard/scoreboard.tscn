@@ -1,0 +1,313 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://asset/ui/bg/bg.tscn" type="PackedScene" id=1]
+[ext_resource path="res://asset/ui/icon/back.png" type="Texture" id=2]
+[ext_resource path="res://asset/ui/fonts/montserrat_eb_48.tres" type="DynamicFont" id=3]
+[ext_resource path="res://asset/scoreboard/scoreboard.gd" type="Script" id=4]
+[ext_resource path="res://asset/ui/fonts/montserrat_eb_32.tres" type="DynamicFont" id=5]
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ "..." ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "loading"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ "...", ".", "..", "...", "..." ]
+}
+
+[node name="scoreboard" type="Node"]
+script = ExtResource( 4 )
+
+[node name="bg" parent="." instance=ExtResource( 1 )]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+margin_right = 10.0
+margin_bottom = 1024.0
+rect_min_size = Vector2( 10, 0 )
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 14.0
+margin_right = 586.0
+margin_bottom = 1024.0
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer2"]
+margin_right = 572.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 100 )
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/VBoxContainer2"]
+margin_top = 104.0
+margin_right = 572.0
+margin_bottom = 920.0
+size_flags_vertical = 3
+color = Color( 0, 0, 0, 0.498039 )
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/VBoxContainer2"]
+margin_top = 924.0
+margin_right = 572.0
+margin_bottom = 1024.0
+rect_min_size = Vector2( 0, 100 )
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer"]
+margin_left = 590.0
+margin_right = 600.0
+margin_bottom = 1024.0
+rect_min_size = Vector2( 10, 0 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ui_panel" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 600.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 100 )
+alignment = 1
+
+[node name="MarginContainer5" type="MarginContainer" parent="VBoxContainer/ui_panel"]
+margin_right = 14.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 14, 0 )
+
+[node name="back" type="TextureButton" parent="VBoxContainer/ui_panel"]
+self_modulate = Color( 0, 0, 0, 1 )
+margin_left = 18.0
+margin_top = 10.0
+margin_right = 98.0
+margin_bottom = 90.0
+rect_min_size = Vector2( 80, 80 )
+size_flags_vertical = 4
+texture_normal = ExtResource( 2 )
+expand = true
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/ui_panel/back"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -40.0
+margin_top = -40.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_scale = Vector2( 0.95, 0.95 )
+rect_pivot_offset = Vector2( 40, 40 )
+mouse_filter = 2
+texture = ExtResource( 2 )
+expand = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/ui_panel"]
+margin_left = 102.0
+margin_right = 167.0
+margin_bottom = 100.0
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="VBoxContainer/ui_panel"]
+margin_left = 171.0
+margin_top = 24.0
+margin_right = 428.0
+margin_bottom = 76.0
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+custom_constants/shadow_as_outline = 1
+custom_fonts/font = ExtResource( 3 )
+text = "Scoreboard"
+align = 1
+valign = 1
+
+[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/ui_panel"]
+margin_left = 432.0
+margin_right = 498.0
+margin_bottom = 100.0
+size_flags_horizontal = 3
+
+[node name="MarginContainer4" type="MarginContainer" parent="VBoxContainer/ui_panel"]
+margin_left = 502.0
+margin_right = 582.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 80, 80 )
+
+[node name="MarginContainer6" type="MarginContainer" parent="VBoxContainer/ui_panel"]
+margin_left = 586.0
+margin_right = 600.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 14, 0 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+margin_top = 104.0
+margin_right = 600.0
+margin_bottom = 500.0
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+margin_right = 600.0
+size_flags_horizontal = 3
+
+[node name="loading_text" type="Label" parent="VBoxContainer"]
+margin_top = 504.0
+margin_right = 600.0
+margin_bottom = 900.0
+size_flags_vertical = 7
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+custom_constants/shadow_as_outline = 1
+custom_fonts/font = ExtResource( 5 )
+text = "..."
+align = 1
+valign = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="VBoxContainer/loading_text"]
+autoplay = "loading"
+anims/RESET = SubResource( 1 )
+anims/loading = SubResource( 2 )
+
+[node name="error_text" type="Label" parent="VBoxContainer"]
+visible = false
+margin_top = 504.0
+margin_right = 600.0
+margin_bottom = 900.0
+size_flags_vertical = 7
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+custom_constants/shadow_as_outline = 1
+custom_fonts/font = ExtResource( 5 )
+text = "Opps!
+
+Something wrong 
+is happend :("
+align = 1
+valign = 1
+
+[node name="empty_text" type="Label" parent="VBoxContainer"]
+visible = false
+margin_top = 504.0
+margin_right = 600.0
+margin_bottom = 900.0
+size_flags_vertical = 7
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+custom_constants/shadow_as_outline = 1
+custom_fonts/font = ExtResource( 5 )
+text = "No data"
+align = 1
+valign = 1
+
+[node name="ui_panel2" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 904.0
+margin_right = 600.0
+margin_bottom = 1024.0
+rect_min_size = Vector2( 0, 120 )
+alignment = 1
+
+[node name="MarginContainer5" type="MarginContainer" parent="VBoxContainer/ui_panel2"]
+margin_left = 158.0
+margin_right = 172.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 14, 0 )
+
+[node name="prev" type="TextureButton" parent="VBoxContainer/ui_panel2"]
+self_modulate = Color( 0, 0, 0, 1 )
+margin_left = 176.0
+margin_top = 20.0
+margin_right = 256.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 80, 80 )
+size_flags_vertical = 4
+texture_normal = ExtResource( 2 )
+expand = true
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/ui_panel2/prev"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -40.0
+margin_top = -40.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_scale = Vector2( 0.95, 0.95 )
+rect_pivot_offset = Vector2( 40, 40 )
+mouse_filter = 2
+texture = ExtResource( 2 )
+expand = true
+
+[node name="MarginContainer4" type="MarginContainer" parent="VBoxContainer/ui_panel2"]
+margin_left = 260.0
+margin_right = 340.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 80, 80 )
+
+[node name="next" type="TextureButton" parent="VBoxContainer/ui_panel2"]
+self_modulate = Color( 0, 0, 0, 1 )
+margin_left = 344.0
+margin_top = 20.0
+margin_right = 424.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 80, 80 )
+rect_pivot_offset = Vector2( 40, 40 )
+size_flags_vertical = 4
+texture_normal = ExtResource( 2 )
+expand = true
+flip_h = true
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/ui_panel2/next"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -40.0
+margin_top = -40.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_scale = Vector2( 0.95, 0.95 )
+rect_pivot_offset = Vector2( 40, 40 )
+mouse_filter = 2
+texture = ExtResource( 2 )
+expand = true
+flip_h = true
+
+[node name="MarginContainer6" type="MarginContainer" parent="VBoxContainer/ui_panel2"]
+margin_left = 428.0
+margin_right = 442.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 14, 0 )
+
+[connection signal="pressed" from="VBoxContainer/ui_panel/back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="VBoxContainer/ui_panel2/prev" to="." method="_on_prev_pressed"]
+[connection signal="pressed" from="VBoxContainer/ui_panel2/next" to="." method="_on_next_pressed"]

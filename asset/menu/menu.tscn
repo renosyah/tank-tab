@@ -1,0 +1,120 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://asset/ui/fonts/montserrat_eb_32.tres" type="DynamicFont" id=1]
+[ext_resource path="res://asset/menu/menu.gd" type="Script" id=2]
+[ext_resource path="res://asset/menu/play.png" type="Texture" id=3]
+[ext_resource path="res://asset/ui/fonts/montserrat_eb_86.tres" type="DynamicFont" id=4]
+[ext_resource path="res://asset/ui/icon/score.png" type="Texture" id=5]
+[ext_resource path="res://asset/ui/bg/bg.tscn" type="PackedScene" id=6]
+
+[node name="menu" type="Node"]
+script = ExtResource( 2 )
+
+[node name="bg" parent="." instance=ExtResource( 6 )]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="title" type="Label" parent="CanvasLayer/VBoxContainer"]
+margin_top = 283.0
+margin_right = 600.0
+margin_bottom = 389.0
+custom_colors/font_color = Color( 0.831373, 0.901961, 1, 1 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+custom_constants/shadow_as_outline = 1
+custom_fonts/font = ExtResource( 4 )
+text = "Tank Tab"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="player_name" type="Label" parent="CanvasLayer/VBoxContainer"]
+margin_top = 393.0
+margin_right = 600.0
+margin_bottom = 433.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+custom_constants/shadow_as_outline = 1
+custom_fonts/font = ExtResource( 1 )
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/VBoxContainer"]
+margin_top = 437.0
+margin_right = 600.0
+margin_bottom = 537.0
+rect_min_size = Vector2( 0, 100 )
+
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer/VBoxContainer"]
+margin_left = 200.0
+margin_top = 541.0
+margin_right = 400.0
+margin_bottom = 741.0
+rect_min_size = Vector2( 200, 200 )
+size_flags_horizontal = 4
+texture_normal = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ui_panel" type="HBoxContainer" parent="CanvasLayer"]
+anchor_right = 1.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 100 )
+alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/ui_panel"]
+margin_right = 498.0
+margin_bottom = 100.0
+size_flags_horizontal = 3
+
+[node name="scoreboard" type="TextureButton" parent="CanvasLayer/ui_panel"]
+self_modulate = Color( 0, 0, 0, 1 )
+margin_left = 502.0
+margin_top = 10.0
+margin_right = 582.0
+margin_bottom = 90.0
+rect_min_size = Vector2( 80, 80 )
+size_flags_vertical = 4
+texture_normal = ExtResource( 5 )
+expand = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/ui_panel/scoreboard"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -40.0
+margin_top = -40.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_scale = Vector2( 0.95, 0.95 )
+rect_pivot_offset = Vector2( 40, 40 )
+mouse_filter = 2
+texture = ExtResource( 5 )
+expand = true
+
+[node name="MarginContainer5" type="MarginContainer" parent="CanvasLayer/ui_panel"]
+margin_left = 586.0
+margin_right = 600.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 14, 0 )
+
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/TextureButton" to="." method="_on_TextureButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/ui_panel/scoreboard" to="." method="_on_scoreboard_pressed"]

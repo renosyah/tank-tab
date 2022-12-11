@@ -1,0 +1,73 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://asset/ui/fonts/montserrat_eb_32.tres" type="DynamicFont" id=1]
+[ext_resource path="res://asset/scoreboard/item/item.gd" type="Script" id=2]
+
+[node name="item" type="HBoxContainer"]
+anchor_right = 1.0
+rect_min_size = Vector2( 0, 80 )
+alignment = 1
+script = ExtResource( 2 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 40, 0 )
+
+[node name="num" type="Label" parent="."]
+margin_left = 44.0
+margin_top = 20.0
+margin_right = 66.0
+margin_bottom = 60.0
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+custom_constants/shadow_as_outline = 1
+custom_fonts/font = ExtResource( 1 )
+text = "0"
+
+[node name="MarginContainer4" type="MarginContainer" parent="."]
+margin_left = 70.0
+margin_right = 90.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 20, 0 )
+
+[node name="name" type="Label" parent="."]
+margin_left = 94.0
+margin_top = 20.0
+margin_right = 190.0
+margin_bottom = 60.0
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+custom_constants/shadow_as_outline = 1
+custom_fonts/font = ExtResource( 1 )
+text = "name"
+
+[node name="MarginContainer2" type="CenterContainer" parent="."]
+margin_left = 194.0
+margin_right = 495.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 150, 0 )
+size_flags_horizontal = 3
+
+[node name="score" type="Label" parent="."]
+margin_left = 499.0
+margin_top = 20.0
+margin_right = 556.0
+margin_bottom = 60.0
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+custom_constants/shadow_as_outline = 1
+custom_fonts/font = ExtResource( 1 )
+text = "100"
+
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+margin_left = 560.0
+margin_right = 600.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 40, 0 )
