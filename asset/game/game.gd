@@ -74,7 +74,7 @@ func spawn_enemy_tank():
 func command_enemy_tank():
 	var alive_enemy_pools = []
 	for enemy_pool in enemy_pools:
-		if not enemy_pool.is_dead and not enemy_pool.is_aiming:
+		if not enemy_pool.is_dead:
 			alive_enemy_pools.append(enemy_pool)
 			
 	alive_enemy_pools.shuffle()
