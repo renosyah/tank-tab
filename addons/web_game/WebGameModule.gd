@@ -6,7 +6,9 @@ signal on_scores(scores, status)
 const SCORE_OK = 0
 const SCORE_ERROR = 1
 
-const base_url = "http://192.168.100.162:8080"
+var host_name :String = ""
+var host_protocol :String = ""
+var host_port :String = ""
 
 var player_id :String
 var player_name :String
@@ -39,9 +41,27 @@ func _init_player():
 		player_name = "Guest"
 	
 func _init_module():
+	if OS.has_feature('JavaScript'):
+		host_name = JavaScript.eval("""
+				window.location.hostname;
+			""")
+			
+		host_protocol = JavaScript.eval("""
+				window.location.protocol;
+			""")
+			
+		host_port = JavaScript.eval("""
+				window.location.port;
+			""")
+			
 	game = WebGameGameData.new()
 	game.id = 6
 	game.game_name = "Tank-tab"
+	
+func _get_base_url():
+	return "{host_protocol}//{host_name}:{host_port}".format(
+		{"host_protocol" :host_protocol,"host_name" :host_name, "host_port" :host_port}
+	)
 	
 func _init_http_requests():
 	scores_http_request = HTTPRequest.new()
@@ -64,7 +84,7 @@ func get_scoreboard(offset, limit :int):
 	})
 	
 	scores_http_request.request(
-		base_url + "/api/score/list.php", 
+		_get_base_url() + "/api/score/list.php", 
 		["Content-Type: application/json"],
 		false, HTTPClient.METHOD_POST, query
 	)
@@ -102,7 +122,7 @@ func update_scoreboard(score :int):
 	score_data.score = score
 	
 	update_score_http_request.request(
-		base_url + "/api/score/add.php", 
+		_get_base_url() + "/api/score/add.php", 
 		["Content-Type: application/json"],
 		false, HTTPClient.METHOD_POST,
 		JSON.print(score_data.to_dictionary())
