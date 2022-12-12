@@ -59,6 +59,11 @@ func _init_module():
 	game.game_name = "Tank-tab"
 	
 func _get_base_url():
+	if host_port.empty():
+		return "{host_protocol}//{host_name}".format(
+			{"host_protocol" :host_protocol,"host_name" :host_name}
+		)
+		
 	return "{host_protocol}//{host_name}:{host_port}".format(
 		{"host_protocol" :host_protocol,"host_name" :host_name, "host_port" :host_port}
 	)
