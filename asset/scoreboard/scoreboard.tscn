@@ -236,16 +236,16 @@ rect_min_size = Vector2( 0, 120 )
 alignment = 1
 
 [node name="MarginContainer5" type="MarginContainer" parent="VBoxContainer/ui_panel2"]
-margin_left = 158.0
-margin_right = 172.0
+margin_left = 123.0
+margin_right = 137.0
 margin_bottom = 120.0
 rect_min_size = Vector2( 14, 0 )
 
 [node name="prev" type="TextureButton" parent="VBoxContainer/ui_panel2"]
 self_modulate = Color( 0, 0, 0, 1 )
-margin_left = 176.0
+margin_left = 141.0
 margin_top = 20.0
-margin_right = 256.0
+margin_right = 221.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 80, 80 )
 size_flags_vertical = 4
@@ -268,16 +268,30 @@ texture = ExtResource( 2 )
 expand = true
 
 [node name="MarginContainer4" type="MarginContainer" parent="VBoxContainer/ui_panel2"]
-margin_left = 260.0
-margin_right = 340.0
+margin_left = 225.0
+margin_right = 375.0
 margin_bottom = 120.0
-rect_min_size = Vector2( 80, 80 )
+rect_min_size = Vector2( 150, 80 )
+
+[node name="page" type="Label" parent="VBoxContainer/ui_panel2/MarginContainer4"]
+margin_top = 40.0
+margin_right = 150.0
+margin_bottom = 80.0
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+custom_constants/shadow_as_outline = 1
+custom_fonts/font = ExtResource( 5 )
+text = "Page 1"
+align = 1
+valign = 1
 
 [node name="next" type="TextureButton" parent="VBoxContainer/ui_panel2"]
 self_modulate = Color( 0, 0, 0, 1 )
-margin_left = 344.0
+margin_left = 379.0
 margin_top = 20.0
-margin_right = 424.0
+margin_right = 459.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 80, 80 )
 rect_pivot_offset = Vector2( 40, 40 )
@@ -303,8 +317,8 @@ expand = true
 flip_h = true
 
 [node name="MarginContainer6" type="MarginContainer" parent="VBoxContainer/ui_panel2"]
-margin_left = 428.0
-margin_right = 442.0
+margin_left = 463.0
+margin_right = 477.0
 margin_bottom = 120.0
 rect_min_size = Vector2( 14, 0 )
 

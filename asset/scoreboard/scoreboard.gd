@@ -8,6 +8,9 @@ onready var loading_text = $VBoxContainer/loading_text
 onready var error_text = $VBoxContainer/error_text
 onready var empty_text = $VBoxContainer/empty_text
 
+onready var page = $VBoxContainer/ui_panel2/MarginContainer4/page
+
+var current_page :int = 1
 var offset :int = 0
 var limit :int = 10
 
@@ -55,13 +58,17 @@ func _on_back_pressed():
 	get_tree().change_scene("res://asset/menu/menu.tscn")
 
 func _on_prev_pressed(): 
-	if offset - limit < 0:
+	if offset <= 0:
 		return
 		
 	offset -= limit
+	current_page -= 1
 	get_scoreboard(offset, limit)
+	page.text = "Page : " + str(current_page)
 	
 func _on_next_pressed():
 	offset += limit
+	current_page +=1
 	get_scoreboard(offset, limit)
+	page.text = "Page : " + str(current_page)
 	

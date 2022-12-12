@@ -41,6 +41,10 @@ func _init_player():
 		player_name = "Guest"
 	
 func _init_module():
+	game = WebGameGameData.new()
+	game.id = 0
+	game.game_name = ProjectSettings.get_setting("application/config/name")
+	
 	if OS.has_feature('JavaScript'):
 		host_name = JavaScript.eval("""
 				window.location.hostname;
@@ -54,9 +58,13 @@ func _init_module():
 				window.location.port;
 			""")
 			
-	game = WebGameGameData.new()
-	game.id = 6
-	game.game_name = "Tank-tab"
+		var game_id = JavaScript.eval("""
+				var url_string = window.location.href;
+				var url = new URL(url_string);
+				url.searchParams.get('game_id');
+			""")
+			
+		game.id = int(game_id)
 	
 func _get_base_url():
 	if host_port.empty():
@@ -79,6 +87,10 @@ func _init_http_requests():
 	add_child(update_score_http_request)
 	
 func get_scoreboard(offset, limit :int):
+	if host_name.empty():
+		emit_signal("on_scores", [], SCORE_ERROR)
+		return
+		
 	var query = JSON.print({
 		"search_by": "game_id",
 		"search_value": str(game.id),
@@ -119,6 +131,10 @@ func _on_scores_http_request_completed(result:int, response_code:int, headers:Po
 	
 	
 func update_scoreboard(score :int):
+	if host_name.empty():
+		emit_signal("on_update_score", SCORE_ERROR)
+		return
+		
 	var score_data :WebGameScoreData = WebGameScoreData.new()
 	score_data.id = 0
 	score_data.game_id = game.id
@@ -136,7 +152,7 @@ func update_scoreboard(score :int):
 	
 func _on_update_score_http_request_completed(result:int, response_code:int, headers:PoolStringArray, body:PoolByteArray):
 	if result != HTTPRequest.RESULT_SUCCESS:
-		emit_signal("on_update_score", SCORE_OK)
+		emit_signal("on_update_score", SCORE_ERROR)
 		return
 		
 	emit_signal("on_update_score", SCORE_OK)

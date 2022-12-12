@@ -32,9 +32,13 @@ onready var bullet_spawn_point = $turret/bullet_spawn_point
 onready var bullet_target_point = $turret/bullet_target_point
 onready var audio_stream_player = $AudioStreamPlayer
 onready var firing_delay = $firing_delay
+onready var aiming_point = $hull/aiming_point
+onready var destroy_particle = $CPUParticles2D
+onready var dead_delay = $dead_delay
 
 func _ready():
-	modulate = color
+	hull.modulate = color
+	turret.modulate = color
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -48,8 +52,10 @@ func make_ready():
 	hp = max_hp
 	is_aiming = false
 	is_dead = false
-	visible = true
+	turret.visible = true
+	hull.visible = true
 	target = null
+	set_process(true)
 	
 func take_hit():
 	if is_dead:
@@ -58,18 +64,23 @@ func take_hit():
 	hp -= 1
 	
 	if hp < 1:
-		is_aiming = false
-		is_dead = true
-		visible = false
-		position = Vector2(-500, -500)
-		target = null
+		destroy_particle.emitting = true
 		audio_stream_player.stream = explode
+		set_process(false)
 		audio_stream_player.play()
-		emit_signal("destroy", self)
+		dead_delay.start()
 		return
 		
-		
 	emit_signal("hit", self)
+	
+func _on_dead_delay_timeout():
+	is_aiming = false
+	is_dead = true
+	turret.visible = false
+	hull.visible = false
+	position = Vector2(-500, -500)
+	target = null
+	emit_signal("destroy", self)
 	
 func _aim(delta):
 	if not is_aiming:
@@ -78,7 +89,7 @@ func _aim(delta):
 	if not is_instance_valid(target):
 		return
 		
-	var angle :float = position.angle_to_point(target.global_position)
+	var angle :float = position.angle_to_point(target.get_aim_point())
 	turret.global_rotation = lerp_angle(turret.global_rotation, angle, 5 * delta)
 	
 	if not firing_delay.is_stopped():
@@ -118,3 +129,20 @@ func _moving(delta):
 func _on_tank_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.is_action_pressed("left_click"):
 		emit_signal("on_tap", self)
+	
+func get_aim_point() -> Vector2:
+	return aiming_point.global_position
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+

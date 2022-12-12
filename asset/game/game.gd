@@ -12,6 +12,7 @@ onready var _game_over_panel = $CanvasLayer/game_over_panel
 onready var _ui_panel = $CanvasLayer/ui_panel
 
 onready var _tank = $YSort/tank
+onready var _click_point = $click_point
 
 var score : int = 0
 var enemy_pools :Array = []
@@ -98,10 +99,18 @@ func display_score():
 	
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.is_action_pressed("left_click"):
+		_click_point.color = Color.white
+		_click_point.position = event.position
+		_click_point.click()
+		
 		_tank.move_to = event.position
 		_tank.is_moving = true
 		
 func _on_enemy_tank_on_tap(tank):
+	_click_point.color = Color.orange
+	_click_point.position = tank.position
+	_click_point.click()
+		
 	_tank.target = tank
 	_tank.is_moving = false
 	_tank.is_aiming = true
