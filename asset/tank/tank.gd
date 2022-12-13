@@ -64,6 +64,7 @@ func take_hit():
 	hp -= 1
 	
 	if hp < 1:
+		emit_signal("destroy", self)
 		destroy_particle.emitting = true
 		audio_stream_player.stream = explode
 		set_process(false)
@@ -80,7 +81,7 @@ func _on_dead_delay_timeout():
 	hull.visible = false
 	position = Vector2(-500, -500)
 	target = null
-	emit_signal("destroy", self)
+	
 	
 func _aim(delta):
 	if not is_aiming:

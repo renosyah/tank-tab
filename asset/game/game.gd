@@ -5,7 +5,7 @@ const tank_scene = preload("res://asset/tank/tank.tscn")
 onready var _y_sort = $YSort
 onready var _screen_size = get_viewport().get_visible_rect().size
 onready var _score = $CanvasLayer/ui_panel/MarginContainer3/score
-onready var _hp = $CanvasLayer/ui_panel/hp
+onready var _ui_hp = $CanvasLayer/ui_panel/center/ui_hp
 onready var _hurt = $CanvasLayer/hurt
 
 onready var _game_over_panel = $CanvasLayer/game_over_panel
@@ -13,6 +13,9 @@ onready var _ui_panel = $CanvasLayer/ui_panel
 
 onready var _tank = $YSort/tank
 onready var _click_point = $click_point
+
+onready var enemy_spawn_timer = $enemy_spawn_timer
+onready var enemy_action_timer = $enemy_action_timer
 
 var score : int = 0
 var enemy_pools :Array = []
@@ -25,6 +28,11 @@ func _ready():
 	_ui_panel.visible = true
 	
 	_tank.position = _screen_size / 2
+	_ui_hp.hp = _tank.hp
+	_ui_hp.max_hp = _tank.max_hp
+	
+	enemy_spawn_timer.start()
+	enemy_action_timer.start()
 	
 	pooling_enemy()
 	display_score()
@@ -37,9 +45,11 @@ func get_random_y(_spawn_point :Control):
 	return Vector2(x , y)
 	
 func _on_enemy_spawn_timer_timeout():
+	enemy_spawn_timer.start()
 	spawn_enemy_tank()
 
 func _on_enemy_action_timer_timeout():
+	enemy_action_timer.start()
 	command_enemy_tank()
 	
 func pooling_enemy():
@@ -95,7 +105,7 @@ func command_enemy_tank():
 			
 func display_score():
 	_score.text = "Score : " + str(score)
-	_hp.text = "Hp : " + str(_tank.hp)
+	_ui_hp.display()
 	
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.is_action_pressed("left_click"):
@@ -123,25 +133,34 @@ func _on_pause_pressed():
 	get_tree().change_scene("res://asset/menu/menu.tscn")
 	
 func _on_tank_hit(tank):
-	display_score()
-	
 	if not _game_over_panel.visible:
+		_ui_hp.hp = _tank.hp
 		_hurt.show_hurt()
 		
+	display_score()
+	
 func _on_tank_destroy(tank):
 	if _game_over_panel.visible:
 		return
 		
-	if _tank.is_dead:
-		WebGameModule.update_scoreboard(score)
-		_game_over_panel.visible = true
-		_ui_panel.visible = false
-		
+	WebGameModule.update_scoreboard(score)
+	_game_over_panel.visible = true
+	_ui_panel.visible = false
+	enemy_spawn_timer.stop()
+	enemy_action_timer.stop()
 	display_score()
 	
 func _on_play_again_pressed():
+	for enemy_pool in enemy_pools:
+		enemy_pool.hp = -1
+		enemy_pool.take_hit()
+		
+	enemy_spawn_timer.start()
+	enemy_action_timer.start()
+	
 	_tank.position = _screen_size / 2
 	_tank.make_ready()
+	_ui_hp.reset()
 	_game_over_panel.visible = false
 	_ui_panel.visible = true
 	score = 0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://asset/ui/bg/bg.tscn" type="PackedScene" id=1]
 [ext_resource path="res://asset/game/game.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://asset/tank/tank.tscn" type="PackedScene" id=7]
 [ext_resource path="res://asset/menu/play.png" type="Texture" id=8]
 [ext_resource path="res://asset/ui/click_point/click_point.tscn" type="PackedScene" id=9]
+[ext_resource path="res://asset/ui/ui_hp/ui_hp.tscn" type="PackedScene" id=10]
 
 [node name="game" type="Node"]
 script = ExtResource( 2 )
@@ -28,30 +29,25 @@ margin_right = 14.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 14, 0 )
 
-[node name="hp" type="Label" parent="CanvasLayer/ui_panel"]
+[node name="center" type="CenterContainer" parent="CanvasLayer/ui_panel"]
 margin_left = 18.0
-margin_top = 30.0
-margin_right = 112.0
-margin_bottom = 70.0
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/line_spacing = 1
-custom_constants/shadow_offset_y = 1
-custom_constants/shadow_as_outline = 1
-custom_fonts/font = ExtResource( 6 )
-text = "Hp : 5"
+margin_right = 18.0
+margin_bottom = 100.0
+size_flags_horizontal = 2
+
+[node name="ui_hp" parent="CanvasLayer/ui_panel/center" instance=ExtResource( 10 )]
+margin_top = 35.0
+margin_bottom = 65.0
 
 [node name="MarginContainer3" type="CenterContainer" parent="CanvasLayer/ui_panel"]
-margin_left = 116.0
-margin_right = 498.0
+margin_left = 204.0
+margin_right = 395.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 14, 0 )
-size_flags_horizontal = 3
 
 [node name="score" type="Label" parent="CanvasLayer/ui_panel/MarginContainer3"]
-margin_left = 95.0
 margin_top = 24.0
-margin_right = 286.0
+margin_right = 191.0
 margin_bottom = 76.0
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
@@ -67,6 +63,7 @@ margin_top = 10.0
 margin_right = 582.0
 margin_bottom = 90.0
 rect_min_size = Vector2( 80, 80 )
+size_flags_horizontal = 10
 size_flags_vertical = 4
 texture_normal = ExtResource( 4 )
 expand = true
@@ -162,11 +159,9 @@ color = Color( 0, 0.262745, 0.564706, 1 )
 visible = false
 
 [node name="enemy_spawn_timer" type="Timer" parent="."]
-autostart = true
 
 [node name="enemy_action_timer" type="Timer" parent="."]
 wait_time = 2.0
-autostart = true
 
 [connection signal="pressed" from="CanvasLayer/ui_panel/pause" to="." method="_on_pause_pressed"]
 [connection signal="pressed" from="CanvasLayer/game_over_panel/play_again" to="." method="_on_play_again_pressed"]
