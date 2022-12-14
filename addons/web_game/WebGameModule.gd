@@ -157,8 +157,12 @@ func _on_update_score_http_request_completed(result:int, response_code:int, head
 		
 	emit_signal("on_update_score", SCORE_OK)
 	
-	
-	
-	
-
-	
+func exit_game():
+	if OS.has_feature('JavaScript'):
+		JavaScript.eval("""
+			gameNavigation.postMessage('exit');
+		""", true)
+		
+		JavaScript.eval("""
+			window.close();
+		""", true)
